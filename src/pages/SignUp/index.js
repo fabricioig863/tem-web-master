@@ -1,38 +1,44 @@
-import { useState } from 'react';
+
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/auth';
+
 import logo from '../../assets/logo2.png';
-import './signup.css';
 
 function SignUp() {
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+
+  const { signUp, loadingAuth } = useContext(AuthContext);
 
   function handleSubmit(e){
     e.preventDefault();
-    alert('clicou');
+    
+    if(nome !== '' && email !== '' && password !== ''){
+      signUp(email, password, nome)
+    }
+
   }
 
   return (
-  <div className="container-center">
-    <div className="login">
-      <div className="logo-area">
-        <img src={logo} alt="Logo tem saude" />
+    <div className="container-center">
+      <div className="login">
+        <div className="login-area">
+          <img src={logo} alt="Sistema Logo" />
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <h1>Cadastrar uma conta</h1>
+          <input type="text" placeholder="Seu nome" value={nome} onChange={(e) => setNome(e.target.value)} />
+          <input type="text" placeholder="email@email.com" value={email} onChange={ (e) => setEmail(e.target.value) }/>
+          <input type="password" placeholder="*******" value={password} onChange={(e) => setPassword(e.target.value) } />
+          <button type="submit">{loadingAuth ? 'Carregando...' : 'Cadastrar'}</button>
+        </form>  
+
+        <Link to="/">Já tem uma conta? Entre</Link>
       </div>
-
-      <form onSubmit={handleSubmit}>
-        <h1>Cadastrar uma conta</h1>
-        <input type="text" placeholder="name" value={name} onchange={ (e) => setName(e.target.value) }/>
-        <input type="text" placeholder="email@gmail.com" value={email} onchange={ (e) => setEmail(e.target.value) }/>
-        <input type="password" placeholder="*******" value={password} onchange={ (e) => setPassword(e.target.value) }/>
-    
-        <button type="submit">Cadastrar</button>
-      </form>
-
-
-      <Link to="/">Ja possui uma conta? Entre</Link>
     </div>
-  </div>
   );
 }
 

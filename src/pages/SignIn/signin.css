@@ -15,14 +15,14 @@
   flex-direction: column;
 }
 
-.logo-area{
+.login-area{
   display: flex;
   justify-content: center;
   background-color: #c5cccf;
   width: 100%;
 }
 
-.logo-area img{
+.login-area img{
   padding: 20px;
   width: 195px;
   height: 145px;
