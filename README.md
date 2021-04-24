@@ -8,6 +8,11 @@
 
 Desafio da tem saude. 
 
+## Testando a aplicação
+
+Caso queira testar a aplicação em produção segue o link abaixo
+link -> https://tem-web-master.web.app/
+
 
 ## 💻 Como utilizar
 
