@@ -10,24 +10,21 @@ import { toast } from 'react-toastify';
 export default function Patients(){
 
   const [nomePaciente, setNomePaciente] = useState('');
-  const [cpf, setCpf] = useState('');
   const [medico, setMedico] = useState('');
   const [agendamento, setAgendamento] = useState('');
 
   async function handleAdd(e){
     e.preventDefault();
     
-    if(nomePaciente !== '' && cpf !== '' && medico !== '' && agendamento !== ''){
+    if(nomePaciente !== '' && medico !== '' && agendamento !== ''){
       await firebase.firestore().collection('patients')
       .add({
         nomePaciente: nomePaciente,
-        cpf: cpf,
         medico: medico,
         agendamento: agendamento
       })
       .then(() => {
         setNomePaciente('');
-        setCpf('');
         setMedico('');
         setAgendamento('');
         toast.info('Paciente cadastrado com sucesso!');
@@ -55,9 +52,6 @@ export default function Patients(){
           <form className="form-profile patients" onSubmit={handleAdd}>
             <label>Nome do Paciente</label>
             <input type="text" placeholder="Nome do Paciente" value={nomePaciente} onChange={ (e) => setNomePaciente(e.target.value) } />
-
-            <label>CPF</label>
-            <input type="text" placeholder="CPF do Paciente" value={cpf} onChange={ (e) => setCpf(e.target.value) } />
 
             <label>Medico</label>
             <input type="text" placeholder="Nome do Medico" value={medico} onChange={ (e) => setMedico(e.target.value) } />
