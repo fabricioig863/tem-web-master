@@ -8,9 +8,6 @@
 
 Desafio da tem saude. 
 
-## 🎨 Layout
-
-![Layout do projeto](./src/assets/layout-projeto.gif)
 
 ## 💻 Como utilizar
 
