@@ -48,7 +48,7 @@ function AuthProvider({ children }){
       setUser(data);
       storageUser(data);
       setLoadingAuth(false);
-      toast.success('Bem vindo a plataforma!');
+      toast.success('Bem vindo de volta!');
 
     })
     .catch((error) => {
@@ -119,7 +119,9 @@ function AuthProvider({ children }){
       signUp,
       signIn,
       signOut,
-      loadingAuth
+      loadingAuth,
+      setUser,
+      storageUser
     }}
     >
       {children}

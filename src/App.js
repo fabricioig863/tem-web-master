@@ -9,6 +9,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ToastContainer autoClose={3000} />
         <Routes/>
       </BrowserRouter>
     </AuthProvider>
