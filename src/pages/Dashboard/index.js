@@ -7,7 +7,7 @@ import { FiMessageSquare, FiPlus, FiSearch, FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 export default function Dashboard(){
-  const [chamados, setChamandos] = useState([1]);
+  const [chamados, setChamandos] = useState([]);
 
   return(
     <div>
