@@ -92,12 +92,12 @@ export default function Dashboard(){
     setDetail(item);
   }
 
-  const deleteItem = useCallback((item) => {
-    firebase.firestore().collection('chamados').doc(item)
+  const deleteItem = useCallback((id) => {
+    firebase.firestore().collection('chamados').doc(id)
     .delete()
     .then(() => {
-      let chamadosPatients = chamados.filter(id => item.id !== id)
-      setChamados(chamadosPatients);
+      let deleteListItem = chamados.filter((item) => item.id !== id)
+      setChamados(deleteListItem);
       toast.success('Item deletado com sucesso!');
     })
     .catch((err) => {
