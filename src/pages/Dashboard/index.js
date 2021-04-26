@@ -1,11 +1,13 @@
 import './dashboard.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import Header from '../../components/Header';
 import Title from '../../components/Title';
 import { FiMessageSquare, FiPlus, FiSearch, FiEdit2 } from 'react-icons/fi';
+import { MdDeleteForever } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import { toast } from 'react-toastify';
 
 import firebase from '../../services/firebaseConnection';
 import Modal from '../../components/Modal';
@@ -13,7 +15,7 @@ import Modal from '../../components/Modal';
 const listRef = firebase.firestore().collection('chamados').orderBy('created', 'desc');
 
 export default function Dashboard(){
-  const [chamados, setChamandos] = useState([]);
+  const [chamados, setChamados] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
@@ -66,7 +68,7 @@ export default function Dashboard(){
 
       const lastDoc = snapshot.docs[snapshot.docs.length -1]; //Pegando o ultimo documento buscado
 
-      setChamandos(chamados => [...chamados, ...list])
+      setChamados(chamados => [...chamados, ...list])
       setLastDocs(lastDoc);
     }else{
       setIsEmpty(true);
@@ -89,6 +91,21 @@ export default function Dashboard(){
     setShowPostModal(!showPostModal) //troca de true pra false com base no valor do estado.
     setDetail(item);
   }
+
+  const deleteItem = useCallback((item) => {
+    firebase.firestore().collection('chamados').doc(item)
+    .delete()
+    .then(() => {
+      let chamadosPatients = chamados.filter(id => item.id !== id)
+      setChamados(chamadosPatients);
+      toast.success('Item deletado com sucesso!');
+    })
+    .catch((err) => {
+      toast.error('Ops erro ao tentar deletar item.');
+      console.log(err)
+    })
+  }, [chamados])
+
 
   if(loading === true){
     return(
@@ -156,6 +173,9 @@ export default function Dashboard(){
                   <td data-label="#">
                     <button className="action" style={{backgroundColor: '#3583f6' }} onClick={ () => togglePostModal(item)}>
                       <FiSearch color="#FFF" size={17} />
+                    </button>
+                    <button className="action" style={{backgroundColor: '#FF0000' }} onClick={ () => deleteItem(item.id)}>
+                      <MdDeleteForever color="#FFF" size={17} />
                     </button>
                     <Link className="action" style={{backgroundColor: '#F6a935' }} to={`/new/${item.id}`} >
                       <FiEdit2 color="#FFF" size={17} />
