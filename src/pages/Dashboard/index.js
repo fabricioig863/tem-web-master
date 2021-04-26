@@ -92,11 +92,22 @@ export default function Dashboard(){
     setDetail(item);
   }
 
+<<<<<<< HEAD
   const deleteItem = useCallback((item) => {
     firebase.firestore().collection('chamados').doc(item)
     .delete()
     .then(() => {
       let chamadosPatients = chamados.filter(id => item.id !== id)
+=======
+  async function deleteItem(item){
+    await firebase.firestore().collection('chamados').doc(item)
+    .delete()
+    .then((id) => {
+      let chamadosPatients = chamados.filter((item) => {
+        return (item.id !== id)
+      })
+
+>>>>>>> 902185ab672c405a3d71acb6a3a603373091eff4
       setChamados(chamadosPatients);
       toast.success('Item deletado com sucesso!');
     })
@@ -104,7 +115,11 @@ export default function Dashboard(){
       toast.error('Ops erro ao tentar deletar item.');
       console.log(err)
     })
+<<<<<<< HEAD
   }, [chamados])
+=======
+  }
+>>>>>>> 902185ab672c405a3d71acb6a3a603373091eff4
 
 
   if(loading === true){
