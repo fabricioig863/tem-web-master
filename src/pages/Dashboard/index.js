@@ -98,7 +98,7 @@ export default function Dashboard(){
     .then(() => {
       let deleteListItem = chamados.filter((item) => item.id !== id)
       setChamados(deleteListItem);
-      toast.success('Item deletado com sucesso!');
+      toast.info('Item deletado com sucesso!');
     })
     .catch((err) => {
       toast.error('Ops erro ao tentar deletar item.');
